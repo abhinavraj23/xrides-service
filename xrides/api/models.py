@@ -12,7 +12,7 @@ import uuid
 class Booking(models.Model):
 
     uuid = models.CharField(max_length=200, default="")
-    user_id = models.IntegerField(max_length=10)
+    user_id = models.IntegerField()
     vehicle_model_id = models.IntegerField()
 
     PACKAGE_TYPE = (
