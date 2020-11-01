@@ -53,7 +53,6 @@ class AddBookingAPI(APIView):
             to_date = data["to_date"]
             online_booking = data["online_booking"]
             mobile_booking = data["mobile_booking"]
-            booking_created = data["booking_created"]
             from_lat = data["from_lat"]
             from_long = data["from_long"]
             to_lat = data["to_lat"]
