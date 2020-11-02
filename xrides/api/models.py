@@ -9,7 +9,6 @@ import sys
 import json
 import uuid
 
-
 class Booking(models.Model):
 
     uuid = models.CharField(max_length=200, default="")
@@ -44,7 +43,7 @@ class Booking(models.Model):
     to_date = models.DateTimeField(blank=True, null=True)
     online_booking = models.BooleanField(default=True)
     mobile_booking = models.BooleanField(default=False)
-    booking_created = models.DateTimeField(auto_now_add=True)
+    booking_created = models.DateTimeField()
     from_lat = models.DecimalField(max_digits=9, decimal_places=6)
     from_long = models.DecimalField(max_digits=9, decimal_places=6)
     to_lat = models.DecimalField(max_digits=9, decimal_places=6)

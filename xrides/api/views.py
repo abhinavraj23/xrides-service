@@ -40,26 +40,27 @@ class AddBookingAPI(APIView):
             if not isinstance(data, dict):
                 data = json.loads(data)
 
-            uuid = data["uuid"]
+            uuid = data.get["uuid"]
             user_id = data["user_id"]
             vehicle_model_id = data["vehicle_model_id"]
             package_id = data["package_id"]
-            travel_id = data["travel_id"]
+            travel_id = data.get("travel_id")
             from_area_id = data["from_area_id"]
             to_area_id = data["to_area_id"]
-            from_city_id = data["from_city_id"]
-            to_city_id = data["to_city_id"]
+            from_city_id = data.get("from_city_id")
+            to_city_id = data.get("to_city_id")
             from_date = data["from_date"]
-            to_date = data["to_date"]
+            to_date = data.get("to_date")
             online_booking = data["online_booking"]
             mobile_booking = data["mobile_booking"]
+            booking_created = data["booking_created"]
             from_lat = data["from_lat"]
             from_long = data["from_long"]
-            to_lat = data["to_lat"]
-            to_long = data["to_long"]
+            to_lat = data.get("to_lat")
+            to_long = data.get("to_long")
             car_cancelation = data["car_cancelation"]
 
-            booking_obj = Booking.objects.update_or_create(
+            booking_obj, exists = Booking.objects.update_or_create(
                 uuid=uuid,
                 user_id=user_id,
                 vehicle_model_id=vehicle_model_id,
