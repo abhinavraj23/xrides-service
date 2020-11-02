@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'auditlog',
     'api',
 ]
 
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'auditlog.middleware.AuditlogMiddleware',
 ]
 
 ROOT_URLCONF = 'xrides.urls'
@@ -118,6 +120,54 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# Log Conf
+if not os.path.exists('log'):
+    os.makedirs('log')
+
+APP_LOG_FILENAME = os.path.join(BASE_DIR, 'log/app.log')
+
+LOGFILE_SIZE = 20 * 1024 * 1024
+LOGFILE_COUNT = 5
+LOGFILE_APP = 'xrides'
+LOGFILE_APP2 = 'api'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format' : "[%(asctime)s] %(levelname)s [%(filename)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d-%b-%Y %H:%M:%S"
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler'
+        },
+        'applog': {
+            'level':'INFO',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': APP_LOG_FILENAME,
+            'maxBytes': LOGFILE_SIZE,
+            'backupCount': LOGFILE_COUNT,
+            'formatter': 'standard',
+        }
+    },
+    'loggers': {
+        LOGFILE_APP: {
+            'handlers': ['applog'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        LOGFILE_APP2: {
+            'handlers': ['applog'],
+            'level': 'INFO',
+            'propagate': True,
+        }
+    }
+}
 
 
 # Static files (CSS, JavaScript, Images)
