@@ -48,7 +48,7 @@ class Booking(models.Model):
     from_long = models.DecimalField(max_digits=9, decimal_places=6)
     to_lat = models.DecimalField(max_digits=9, decimal_places=6)
     to_long = models.DecimalField(max_digits=9, decimal_places=6)
-    car_cancelation = models.BooleanField(default=False)
+    car_cancellation = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.uuid)
