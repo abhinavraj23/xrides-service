@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf',
     'rest_framework',
     'auditlog',
     'api',
@@ -170,10 +172,14 @@ LOGGING = {
 }
 
 # Elasticsearch
+es_key = 'eE1fMWozVUJITmdvY3V5bTRDTkI6UzBJTzZPUmVRem1JRlJxdk80dHZqZw=='
+
+username = 'elastic'
+paswd = 'AKSd5vCB76t4Ltu1FZNSISpi'
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': os.environ.get('ES_HOST', 'elasticsearch:9200'),
+        'hosts': 'https://elastic:AKSd5vCB76t4Ltu1FZNSISpi@07f48e42644848fd92b00931361d44f6.us-east-1.aws.found.io:9243',
         'timeout': 30,
     },
 }

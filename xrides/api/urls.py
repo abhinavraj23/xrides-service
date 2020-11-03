@@ -12,7 +12,7 @@ router = SimpleRouter()
 
 router.register(
     prefix=r'',
-    base_name='bookings',
+    basename='bookings',
     viewset=views_es.BookingViewSet
 )
 

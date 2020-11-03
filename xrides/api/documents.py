@@ -1,5 +1,5 @@
 from elasticsearch_dsl import analyzer
-from django_elasticsearch_dsl import DocType, Index, fields
+from django_elasticsearch_dsl import Document, Index, fields
 from api import models as booking_models
 from django.conf import settings
 
@@ -12,9 +12,9 @@ ES_INDEX = settings.ES_INDEX
 #     char_filter=["html_strip"]
 # )
 
-@ES_INDEX.doc_type
-class BookingDocument(DocType):
-    class Meta:
+@ES_INDEX.document
+class BookingDocument(Document):
+    class Django:
         model = booking_models.Booking
 
         # The fields of the model you want to be indexed in Elasticsearch

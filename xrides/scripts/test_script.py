@@ -13,7 +13,7 @@ for i, row in tqdm(raw_data.iterrows()):
     url = "http://127.0.0.1:8000/api/add-booking/"
     x = requests.post(url, data = json_obj)
 
-    if x.status_code == 500 or (i > 1000):
+    if x.status_code == 500 or (i > 30):
         print(row["id"])
         break
 

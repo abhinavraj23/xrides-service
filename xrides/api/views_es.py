@@ -15,7 +15,7 @@ from django_elasticsearch_dsl_drf.filter_backends import (
 from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
 
 from api import documents as booking_documents
-from articles import serializers as booking_serializers
+from api import serializers as booking_serializers
 
 class BookingViewSet(DocumentViewSet):
     document = booking_documents.BookingDocument
@@ -56,6 +56,10 @@ class BookingViewSet(DocumentViewSet):
                 LOOKUP_QUERY_IN,
             ]
         },
+    }
 
+    ordering_fields = {
+        'uuid': 'uuid',
+        'to_city_id':'to_city_id'
     }
 
