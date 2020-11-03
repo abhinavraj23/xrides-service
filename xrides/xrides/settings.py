@@ -169,6 +169,24 @@ LOGGING = {
     }
 }
 
+# Elasticsearch
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': os.environ.get('ES_HOST', 'elasticsearch:9200'),
+        'timeout': 30,
+    },
+}
+
+from django_elasticsearch_dsl import Index
+
+ES_INDEX = Index('bookings')  # Name of the Elasticsearch index
+
+# See Elasticsearch Indices API reference for available settings
+ES_INDEX.settings(
+    number_of_shards=1,
+    number_of_replicas=0
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

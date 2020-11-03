@@ -40,7 +40,7 @@ class AddBookingAPI(APIView):
             if not isinstance(data, dict):
                 data = json.loads(data)
 
-            uuid = data.get("uuid")
+            uuid = data.get("id")
             user_id = data["user_id"]
             vehicle_model_id = data["vehicle_model_id"]
 
