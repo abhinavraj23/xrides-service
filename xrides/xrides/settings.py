@@ -172,7 +172,6 @@ LOGGING = {
 }
 
 # Elasticsearch
-es_key = 'eE1fMWozVUJITmdvY3V5bTRDTkI6UzBJTzZPUmVRem1JRlJxdk80dHZqZw=='
 
 ELASTICSEARCH_DSL = {
     'default': {
