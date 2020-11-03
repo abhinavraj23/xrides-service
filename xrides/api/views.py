@@ -43,10 +43,20 @@ class AddBookingAPI(APIView):
             uuid = data.get("uuid")
             user_id = data["user_id"]
             vehicle_model_id = data["vehicle_model_id"]
+
             package_id = data.get("package_id")
+            if package_id is not None:
+                package_id = int(float(package_id))
+
             travel_id = data.get("travel_id")
+            if travel_id is not None:
+                travel_id = int(float(travel_id))
+
             from_area_id = int(float(data["from_area_id"]))
-            to_area_id = int(float(data["to_area_id"]))
+
+            to_area_id = data.get("to_area_id")
+            if to_area_id is not None:
+                to_area_id = int(float(to_area_id))
 
             from_city_id = data.get("from_city_id")
             if from_city_id is not None:
@@ -56,16 +66,17 @@ class AddBookingAPI(APIView):
             if to_city_id is not None:
                 to_city_id = int(float(to_city_id))
 
-            from_date = datetime.strptime(data["from_date"], '%d/%m/%Y %H:%M')
+            from_date = datetime.strptime(data["from_date"], '%m/%d/%Y %H:%M')
 
             to_date = data.get("to_date")
             if to_date is not None:
-                to_date = datetime.strptime(to_date, '%d/%m/%Y %H:%M')
+                to_date = datetime.strptime(to_date, '%m/%d/%Y %H:%M')
 
             online_booking = bool(data["online_booking"])
             mobile_site_booking = bool(data["mobile_site_booking"])
 
-            booking_created = datetime.strptime(data["booking_created"], '%d/%m/%Y %H:%M')
+            booking_created = datetime.strptime(
+                data["booking_created"], '%m/%d/%Y %H:%M')
 
             from_lat = float(data["from_lat"])
             from_long = float(data["from_long"])
@@ -80,35 +91,43 @@ class AddBookingAPI(APIView):
 
             car_cancellation = bool(data["Car_Cancellation"])
 
-            booking_obj, exists = Booking.objects.update_or_create(
-                uuid=uuid,
-                user_id=user_id,
-                vehicle_model_id=vehicle_model_id,
-                package_id=package_id,
-                travel_id=travel_id,
-                from_area_id=from_area_id,
-                to_area_id=to_area_id,
-                from_city_id=from_city_id,
-                to_city_id=to_city_id,
-                from_date=from_date,
-                to_date=to_date,
-                online_booking=online_booking,
-                mobile_booking=mobile_site_booking,
-                booking_created=booking_created,
-                from_lat=from_lat,
-                from_long=from_long,
-                to_lat=to_lat,
-                to_long=to_long,
-                car_cancellation=car_cancellation,
-            )
+            created = Booking.objects.filter(pk=uuid).exists()
 
-            response['uuid'] = str(booking_obj.uuid)
-            resp_status = status.HTTP_201_CREATED
+            if created == False:
+                booking_obj = Booking.objects.create(
+                    uuid=uuid,
+                    user_id=user_id,
+                    vehicle_model_id=vehicle_model_id,
+                    package_id=package_id,
+                    travel_id=travel_id,
+                    from_area_id=from_area_id,
+                    to_area_id=to_area_id,
+                    from_city_id=from_city_id,
+                    to_city_id=to_city_id,
+                    from_date=from_date,
+                    to_date=to_date,
+                    online_booking=online_booking,
+                    mobile_booking=mobile_site_booking,
+                    booking_created=booking_created,
+                    from_lat=from_lat,
+                    from_long=from_long,
+                    to_lat=to_lat,
+                    to_long=to_long,
+                    car_cancellation=car_cancellation,
+                )
+
+                resp_status = status.HTTP_201_CREATED
+                response['uuid'] = str(booking_obj.uuid)
+
+            else:
+                response["message"] = "RESOURCE ALREADY EXISTS"
+                resp_status = status.HTTP_403_FORBIDDEN
 
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             logger.error("AddBookingAPI: %s at %s", e, str(exc_tb.tb_lineno))
 
-        return Response(data=response,status=resp_status)
+        return Response(data=response, status=resp_status)
+
 
 AddBooking = AddBookingAPI.as_view()

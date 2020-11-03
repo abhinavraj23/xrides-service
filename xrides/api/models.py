@@ -9,9 +9,10 @@ import sys
 import json
 import uuid
 
+
 class Booking(models.Model):
 
-    uuid = models.CharField(max_length=200, default="")
+    uuid = models.CharField(max_length=200, primary_key=True)
     user_id = models.IntegerField()
     vehicle_model_id = models.IntegerField()
 
@@ -46,8 +47,10 @@ class Booking(models.Model):
     booking_created = models.DateTimeField()
     from_lat = models.DecimalField(max_digits=9, decimal_places=6)
     from_long = models.DecimalField(max_digits=9, decimal_places=6)
-    to_lat = models.DecimalField(max_digits=9, decimal_places=6)
-    to_long = models.DecimalField(max_digits=9, decimal_places=6)
+    to_lat = models.DecimalField(
+        max_digits=9, decimal_places=6, blank=True, null=True)
+    to_long = models.DecimalField(
+        max_digits=9, decimal_places=6, blank=True, null=True)
     car_cancellation = models.BooleanField(default=False)
 
     def __str__(self):
