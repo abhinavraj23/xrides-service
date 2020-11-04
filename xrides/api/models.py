@@ -12,7 +12,7 @@ import uuid
 
 class Booking(models.Model):
 
-    uuid = models.CharField(max_length=200, primary_key=True)
+    id = models.CharField(max_length=200, primary_key=True)
     user_id = models.IntegerField()
     vehicle_model_id = models.IntegerField()
 
@@ -54,12 +54,12 @@ class Booking(models.Model):
     car_cancellation = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.uuid)
+        return str(self.id)
 
     def save(self, *args, **kwargs):
 
-        if self.uuid == None or self.uuid == "":
-            self.uuid = str(uuid.uuid4())
+        if self.id == None or self.id == "":
+            self.id = str(uuid.uuid4())
 
         super(Booking, self).save(*args, **kwargs)
 

@@ -40,7 +40,7 @@ class AddBookingAPI(APIView):
             if not isinstance(data, dict):
                 data = json.loads(data)
 
-            uuid = data.get("id")
+            id = data.get("id")
             user_id = data["user_id"]
             vehicle_model_id = data["vehicle_model_id"]
 
@@ -91,11 +91,11 @@ class AddBookingAPI(APIView):
 
             car_cancellation = bool(data["Car_Cancellation"])
 
-            created = Booking.objects.filter(pk=uuid).exists()
+            created = Booking.objects.filter(pk=id).exists()
 
             if created == False:
                 booking_obj = Booking.objects.create(
-                    uuid=uuid,
+                    id=id,
                     user_id=user_id,
                     vehicle_model_id=vehicle_model_id,
                     package_id=package_id,
@@ -117,7 +117,7 @@ class AddBookingAPI(APIView):
                 )
 
                 resp_status = status.HTTP_201_CREATED
-                response['uuid'] = str(booking_obj.uuid)
+                response['id'] = str(booking_obj.id)
 
             else:
                 response["message"] = "RESOURCE ALREADY EXISTS"

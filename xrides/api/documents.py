@@ -19,7 +19,7 @@ class BookingDocument(Document):
 
         # The fields of the model you want to be indexed in Elasticsearch
         fields = [
-            'uuid',
+            'id',
             'user_id',
             'to_city_id',
             'from_city_id',

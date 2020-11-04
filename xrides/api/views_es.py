@@ -21,7 +21,7 @@ class BookingViewSet(DocumentViewSet):
     document = booking_documents.BookingDocument
     serializer_class = booking_serializers.BookingDocumentSerializer
 
-    lookup_field = 'uuid'
+    lookup_field = 'id'
     filter_backends = [
         FilteringFilterBackend,
         OrderingFilterBackend,
@@ -31,14 +31,14 @@ class BookingViewSet(DocumentViewSet):
 
     # Define search fields
     search_fields = (
-        'uuid',
+        'id',
         'user_id',
     )
 
     # Filter fields
     filter_fields = {
-        'uuid': {
-            'field': 'uuid',
+        'id': {
+            'field': 'id',
             'lookups': [
                 LOOKUP_FILTER_RANGE,
                 LOOKUP_QUERY_IN,
@@ -59,7 +59,7 @@ class BookingViewSet(DocumentViewSet):
     }
 
     ordering_fields = {
-        'uuid': 'uuid',
+        'id': 'id',
         'to_city_id':'to_city_id'
     }
 
