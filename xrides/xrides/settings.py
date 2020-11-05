@@ -181,7 +181,6 @@ environ.Env.read_env()
 ELASTICSEARCH_DSL = {
     'default': {
         'hosts': env('ES_HOST', default='elasticsearch:9200'),
-        'timeout': 30,
     },
 }
 

@@ -5,10 +5,10 @@ ARG build_env
 ENV BUILD_ENV ${build_env}
 
 RUN [ -d /xrides ] || mkdir /xrides;
+COPY ./xrides /xrides
 COPY  requirements.txt /xrides
 WORKDIR /xrides
-RUN pip install --no-cache-dir -r requirements.txt
-COPY ./xrides /xrides
+RUN pip install -r requirements.txt
 # RUN python manage.py migrate
 
 # EXPOSE 8000
