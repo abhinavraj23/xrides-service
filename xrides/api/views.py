@@ -40,7 +40,7 @@ class AddBookingAPI(APIView):
             if not isinstance(data, dict):
                 data = json.loads(data)
 
-            id = data.get("id")
+            id = data["id"]
             user_id = data["user_id"]
             vehicle_model_id = data["vehicle_model_id"]
 
@@ -129,5 +129,34 @@ class AddBookingAPI(APIView):
 
         return Response(data=response, status=resp_status)
 
+class DeleteBookingAPI(APIView):
+
+    def post(self, request, *args, **kwargs):
+        response = {}
+        resp_status = status.HTTP_500_INTERNAL_SERVER_ERROR
+        try:
+
+            data = request.data
+            logger.info("DeleteBookingAPI: %s", str(data))
+            if not isinstance(data, dict):
+                data = json.loads(data)
+
+            id = data["id"]
+            created = Booking.objects.filter(pk=id).exists()
+            if created == True:
+                booking_obj = Booking.objects.get(pk=id)
+                booking_obj.delete()
+                resp_status = status.HTTP_200_OK
+
+            else:
+                resp_status = status.HTTP_400_BAD
+
+        except Exception as e:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            logger.error("DeleteBookingAPI: %s at %s", e, str(exc_tb.tb_lineno))
+
+        return Response(data=response, status=resp_status)
 
 AddBooking = AddBookingAPI.as_view()
+
+DeleteBooking = DeleteBookingAPI.as_view()
