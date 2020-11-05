@@ -16,6 +16,7 @@ from django.utils import timezone
 from datetime import datetime
 
 from api.models import *
+from api.documents import BookingDocument
 
 import sys
 import logging

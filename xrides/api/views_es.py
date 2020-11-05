@@ -60,6 +60,5 @@ class BookingViewSet(DocumentViewSet):
 
     ordering_fields = {
         'id': 'id',
-        'to_city_id':'to_city_id'
     }
 
