@@ -1,0 +1,27 @@
+version: '1'
+
+services:
+  db:
+    image: postgres:13.0
+    environment:
+      - POSTGRES_DB=xrides_db
+      - POSTGRES_USER=abhinavraj
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+  elasticsearch:
+    image: elasticsearch:7.9.3
+    ports:
+      - "9200:9200"
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/xrides
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - elasticsearch
