@@ -10,11 +10,7 @@ raw_data = raw_data.replace({np.nan: None})
 
 for i, row in tqdm(raw_data.iterrows()):
     json_obj = json.loads(row.to_json())
-    # print(type(row["id"]))
-    # break
-    if(row["id"]==132588):
-        url = "http://127.0.0.1:8000/api/add-booking/"
-        x = requests.post(url, data = json_obj)
-        print(row["id"])
-        break
+    url = "http://127.0.0.1:8000/api/add-booking/"
+    x = requests.post(url, data = json_obj)
+    break
 
