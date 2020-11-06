@@ -1,6 +1,6 @@
 ### XRides-service
 
-This is the API service layer for XRides, the service can be used want to send XRides data to your system as well as execute dsl queries by leveraging the power of elasticsearch, with which we can also perform analytics operations on the data.
+This is the API service layer for XRides, this service can be used to send XRides data to your system as well as execute dsl queries by leveraging the power of elasticsearch, with which we can also perform analytics operations on the data.
 
 The service is designed, keeping in mind the real-time streaming nature of data and the burst of requests at peak times of the day.
 
@@ -47,7 +47,7 @@ Note: all these endpoints will be available through the `/api` endpoint, i.e if 
 
 ## Scaling
 
-This service can be scaled using [Kubernetes](https://kubernetes.io/), the dockerized image can be deploy as a pod in kubernetes and further the pods can be scaled using [Horizontal pod autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) which can be used in combination with a [cluster autoscaler](https://github.com/kubernetes/autoscaler) in order to achieve an infinite scaling of this service, i.e add more and more nodes to the cluster will automatically scale the service as per the requirement.
+This service can be scaled using [Kubernetes](https://kubernetes.io/), the dockerized image can be deploy as a pod in kubernetes and further the pods can be scaled using [Horizontal pod autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) which can be used in combination with a [cluster autoscaler](https://github.com/kubernetes/autoscaler) in order to achieve an infinite scaling of this service, i.e adding more and more nodes to the cluster will automatically scale the service as per the requirement.
 
 ## Todos
 
